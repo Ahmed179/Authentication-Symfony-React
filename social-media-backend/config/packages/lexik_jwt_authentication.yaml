@@ -1,0 +1,31 @@
+lexik_jwt_authentication:
+    secret_key:       '%kernel.project_dir%/config/jwt/private.pem'
+    public_key:       '%kernel.project_dir%/config/jwt/public.pem'
+    pass_phrase:      'ivana179AS'
+    token_ttl:        3600
+    user_identity_field: username  # key under which the user identity will be stored in the token payload
+    clock_skew: 0
+
+    encoder:
+        service:            lexik_jwt_authentication.encoder.lcobucci
+        signature_algorithm: RS256
+
+    token_extractors:
+        authorization_header:
+            enabled: true
+            prefix:  Bearer
+            name:    Authorization
+
+        cookie:
+            enabled: true
+            name:    BEARER
+            
+        query_parameter:
+            enabled: true
+            name:    bearer
+        
+        split_cookie:
+            enabled: true
+            cookies:
+                - jwt_hp
+                - jwt_s

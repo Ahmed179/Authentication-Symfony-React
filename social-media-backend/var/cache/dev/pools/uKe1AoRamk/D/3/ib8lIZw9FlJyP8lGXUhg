@@ -1,0 +1,3 @@
+<?php //ApiPlatform%255CCore%255CAction%255CPlaceholderAction
+
+return [PHP_INT_MAX, []];

@@ -1,0 +1,3 @@
+<?php //ApiPlatform%255CCore%255CBridge%255CSymfony%255CBundle%255CAction%255CSwaggerUiAction
+
+return [PHP_INT_MAX, []];
