@@ -1,0 +1,7 @@
+{
+    "require": {
+        "symfony/apache-pack": "^1.0",
+        "symfony/validator": "^5.3",
+        "symfony/security": "^4.4"
+    }
+}
