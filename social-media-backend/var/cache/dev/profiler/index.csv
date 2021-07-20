@@ -665,3 +665,12 @@ e56010,::1,POST,https://localhost:8000/api/user/login,1626677928,,200
 459ea0,::1,GET,https://localhost:8000/api/user/token,1626684996,,404
 4ef1dd,::1,GET,https://localhost:8000/api/user/token,1626686940,a51ddc,404
 a51ddc,::1,GET,https://localhost:8000/api/user/token,1626686940,,404
+d97a28,::1,OPTIONS,https://localhost:8000/api/user/login,1626769611,,200
+dd5605,::1,POST,https://localhost:8000/api/user/login,1626769612,,200
+ea974f,::1,OPTIONS,https://localhost:8000/api/user/token,1626769743,,200
+b959f8,::1,GET,https://localhost:8000/api/user/token,1626769743,571b51,404
+571b51,::1,GET,https://localhost:8000/api/user/token,1626769743,,404
+5ddeb3,::1,POST,https://localhost:8000/api/user/login,1626769908,,200
+508fb0,::1,POST,https://localhost:8000/api/user/login,1626770489,,200
+af85f4,::1,OPTIONS,https://localhost:8000/api/user/signup,1626770499,,200
+1c1a33,::1,POST,https://localhost:8000/api/user/signup,1626770499,,200
