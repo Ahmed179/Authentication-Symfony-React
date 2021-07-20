@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { BrowserRouter as Router, Switch } from "react-router-dom"
 import { PublicRoute, PrivateRoute } from "react-private-public-route"
-import axios from "axios"
 
 import "./pages/css/user_form.css"
 import "./App.css"
@@ -16,17 +15,6 @@ import Signup from "./pages/Signup.js"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (!token) return
-    axios({
-      method: "get",
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
-      url: "https://localhost:8000/api/user/token",
-    }).then(() => {
-      setIsLoggedIn(true)
-    })
-  }, [])
 
   return (
     <Router>
