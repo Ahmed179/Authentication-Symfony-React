@@ -7,7 +7,7 @@ import CheckButton from "react-validation/build/button"
 
 import { signup } from "actions/auth"
 import { Link, useHistory } from "react-router-dom"
-
+import "stylesheet/form.css"
 const required = value => {
   if (!value) {
     return (

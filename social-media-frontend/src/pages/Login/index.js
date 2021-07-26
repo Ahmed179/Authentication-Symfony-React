@@ -5,7 +5,7 @@ import { login } from "actions/auth"
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
+import "stylesheet/form.css"
 function Login() {
   const history = useHistory()
   const dispatch = useDispatch()

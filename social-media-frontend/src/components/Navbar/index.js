@@ -62,7 +62,6 @@ function Navbar() {
          
           />
         </div>
-        <NotificationsOutlinedIcon />
         <LanguageIcon />
         <Button>Add Question</Button>
 
