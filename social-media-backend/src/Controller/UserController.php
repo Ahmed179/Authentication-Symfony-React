@@ -75,6 +75,8 @@ class UserController extends AbstractController
      */
     public function login(Request $request)
     {
+
+
         $data = json_decode($request->getContent(), true);
 
         $constraints = new Assert\Collection([
@@ -89,10 +91,10 @@ class UserController extends AbstractController
         $password = $data['password'];
 
         $user = $this->repository->findOneBy(["username" => $username]);
-        if (!$user) return new Response("Invalid username", Response::HTTP_NOT_FOUND);
+        if (!$user) return new JsonResponse("Invalid Username", Response::HTTP_NOT_FOUND);
 
         $is_password_correct = password_verify($password, $user->getPassword());
-        if (!$is_password_correct) return new Response("Invalid password", Response::HTTP_BAD_REQUEST);
+        if (!$is_password_correct) return new JsonResponse("Invalid password", Response::HTTP_BAD_REQUEST);
 
         $token = $this->jwtManager->create($user);
         return new JsonResponse($token, Response::HTTP_OK);
