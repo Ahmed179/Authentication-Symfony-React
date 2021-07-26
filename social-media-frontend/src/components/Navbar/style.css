@@ -1,0 +1,10 @@
+
+body {
+  min-height: 75rem;
+}
+.search_input{
+  color: white;
+}
+.logout-btn{
+  cursor: pointer;
+}

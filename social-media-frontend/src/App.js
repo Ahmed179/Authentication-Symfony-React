@@ -1,31 +1,22 @@
-import { useState } from "react"
 import { BrowserRouter as Router, Switch } from "react-router-dom"
 import { PublicRoute, PrivateRoute } from "react-private-public-route"
-
-import "./pages/css/user_form.css"
-import "./App.css"
-
-// COMPONENTS
-import Navbar from "./components/Navbar.js"
+import { useSelector } from "react-redux"
 
 // PAGES
-import Login from "./pages/Login.js"
-import Home from "./pages/Home.js"
-import Signup from "./pages/Signup.js"
+import Login from "./pages/Login"
+import Home from "./pages/Home"
+import Signup from "./pages/Signup"
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { isLoggedIn } = useSelector(state => state.auth)
 
   return (
     <Router>
       <div className="App">
-        <Navbar />
         <Switch>
-          <PublicRoute
-            path="/login"
-            component={() => <Login setIsLoggedIn={setIsLoggedIn} isLogged={isLoggedIn} />}
-          />
+          <PublicRoute path="/login" component={Login} />
           <PublicRoute path="/signup" component={Signup} />
+
           <PrivateRoute
             exact
             path="/"
