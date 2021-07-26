@@ -5,7 +5,9 @@
   height:auto;
   width:auto;
 }
-
+ body{
+  background-color: rgb(241, 241, 241) ;
+ }
 label {
   display: block;
   margin-top: 10px;
