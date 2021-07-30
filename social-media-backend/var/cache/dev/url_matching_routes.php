@@ -13,6 +13,8 @@ return [
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/api/posts' => [[['_route' => 'get-postsget-posts', '_controller' => 'App\\Controller\\PostController::getPosts'], null, null, null, false, false, null]],
+        '/api/post' => [[['_route' => 'get-postscreate-post', '_controller' => 'App\\Controller\\PostController::createPost'], null, ['POST' => 0], null, false, false, null]],
         '/api/user/signup' => [[['_route' => 'usersignup', '_controller' => 'App\\Controller\\UserController::signUp'], null, ['POST' => 0], null, false, false, null]],
         '/api/user/login' => [[['_route' => 'userlogin', '_controller' => 'App\\Controller\\UserController::login'], null, ['POST' => 0], null, false, false, null]],
         '/api/login' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
@@ -35,17 +37,22 @@ return [
                     .'|error/(\\d+)(?:\\.([^/]++))?(*:159)'
                 .')'
                 .'|/api(?'
-                    .'|/user/user/([^/]++)(*:194)'
-                    .'|(?:/(index)(?:\\.([^/]++))?)?(*:230)'
                     .'|/(?'
-                        .'|docs(?:\\.([^/]++))?(*:261)'
-                        .'|contexts/(.+)(?:\\.([^/]++))?(*:297)'
+                        .'|post/([^/]++)(?'
+                            .'|(*:195)'
+                        .')'
+                        .'|user/user/([^/]++)(*:222)'
+                    .')'
+                    .'|(?:/(index)(?:\\.([^/]++))?)?(*:259)'
+                    .'|/(?'
+                        .'|docs(?:\\.([^/]++))?(*:290)'
+                        .'|contexts/(.+)(?:\\.([^/]++))?(*:326)'
                         .'|users(?'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:331)'
+                                .'|(*:360)'
                             .')'
                             .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:369)'
+                                .'|(*:398)'
                             .')'
                         .')'
                     .')'
@@ -60,15 +67,19 @@ return [
         114 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         124 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
         159 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        194 => [[['_route' => 'userdelete-user', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        230 => [[['_route' => 'api_entrypoint', '_controller' => 'api_platform.action.entrypoint', '_format' => '', '_api_respond' => 'true', 'index' => 'index'], ['index', '_format'], null, null, false, true, null]],
-        261 => [[['_route' => 'api_doc', '_controller' => 'api_platform.action.documentation', '_format' => '', '_api_respond' => 'true'], ['_format'], null, null, false, true, null]],
-        297 => [[['_route' => 'api_jsonld_context', '_controller' => 'api_platform.jsonld.action.context', '_format' => 'jsonld', '_api_respond' => 'true'], ['shortName', '_format'], null, null, false, true, null]],
-        331 => [
+        195 => [
+            [['_route' => 'get-postsupdate-post', '_controller' => 'App\\Controller\\PostController::updatePost'], ['id'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'get-postsdelete-post', '_controller' => 'App\\Controller\\PostController::deletePost'], ['id'], ['DELETE' => 0], null, false, true, null],
+        ],
+        222 => [[['_route' => 'userdelete-user', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        259 => [[['_route' => 'api_entrypoint', '_controller' => 'api_platform.action.entrypoint', '_format' => '', '_api_respond' => 'true', 'index' => 'index'], ['index', '_format'], null, null, false, true, null]],
+        290 => [[['_route' => 'api_doc', '_controller' => 'api_platform.action.documentation', '_format' => '', '_api_respond' => 'true'], ['_format'], null, null, false, true, null]],
+        326 => [[['_route' => 'api_jsonld_context', '_controller' => 'api_platform.jsonld.action.context', '_format' => 'jsonld', '_api_respond' => 'true'], ['shortName', '_format'], null, null, false, true, null]],
+        360 => [
             [['_route' => 'api_users_get_collection', '_controller' => 'api_platform.action.get_collection', '_format' => null, '_stateless' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_identifiers' => ['id'], '_api_has_composite_identifier' => false, '_api_collection_operation_name' => 'get'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => 'api_users_post_collection', '_controller' => 'api_platform.action.post_collection', '_format' => null, '_stateless' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_identifiers' => ['id'], '_api_has_composite_identifier' => false, '_api_collection_operation_name' => 'post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        369 => [
+        398 => [
             [['_route' => 'api_users_get_item', '_controller' => 'api_platform.action.get_item', '_format' => null, '_stateless' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_identifiers' => ['id'], '_api_has_composite_identifier' => false, '_api_item_operation_name' => 'get'], ['id', '_format'], ['GET' => 0], null, false, true, null],
             [['_route' => 'api_users_delete_item', '_controller' => 'api_platform.action.delete_item', '_format' => null, '_stateless' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_identifiers' => ['id'], '_api_has_composite_identifier' => false, '_api_item_operation_name' => 'delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
             [['_route' => 'api_users_put_item', '_controller' => 'api_platform.action.put_item', '_format' => null, '_stateless' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_identifiers' => ['id'], '_api_has_composite_identifier' => false, '_api_item_operation_name' => 'put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],

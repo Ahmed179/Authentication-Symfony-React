@@ -4,16 +4,19 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JsonSerializable;
 
 /**
  * @ApiResource(formats={"json"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, JsonSerializable
 {
     /**
      * @ORM\Id
@@ -39,6 +42,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     private $plainPassword;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="user_id")
+     */
+    private $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -132,5 +145,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUserId() === $this) {
+                $post->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->id,
+            "username" => $this->username,
+        ];
     }
 }
