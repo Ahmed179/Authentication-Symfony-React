@@ -1,34 +1,27 @@
-import axios from "axios"
-import authHeader from "./auth-header"
-
-const API_URL = "https://localhost:8000/api"
-
+import axiosRequest from "./axiosPrivateRoutes"
 export const getPosts = () =>
-  axios({
+  axiosRequest({
     method: "get",
-    url: API_URL + "/posts",
-    headers: authHeader()
+    url: "/posts"
   })
 
 export const createPost = data =>
-  axios({
+  axiosRequest({
     method: "post",
-    url: API_URL + "/post",
-    headers: authHeader(),
+    url: "/post",
     data
   })
 
 export const updatePost = (id, data) =>
-  axios({
+  axiosRequest({
     method: "put",
-    url: API_URL + "/post/" + id,
-    headers: authHeader(),
+    url: `/post/${id}`,
+
     data
   })
 
 export const deletePost = id =>
-  axios({
+  axiosRequest({
     method: "delete",
-    url: API_URL + "/post/" + id,
-    headers: authHeader()
+    url: `/post/${id}`
   })
