@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch } from "react-router-dom"
 import { PublicRoute, PrivateRoute } from "react-private-public-route"
 import { useSelector } from "react-redux"
+import "stylesheet/form.css"
 
 // PAGES
 import Login from "./pages/Login"

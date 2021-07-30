@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.css"
 import App from "./App"
 import "./App.css"
 
-
 import { Provider } from "react-redux"
 import store from "./store"
 

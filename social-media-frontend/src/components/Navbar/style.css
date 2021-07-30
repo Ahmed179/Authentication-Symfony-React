@@ -25,20 +25,18 @@
 }
 
 .qHeader__icons > .active > .MuiSvgIcon-root {
-  fill: #8f1f1b;
+  fill: rgb(0, 64, 255);
 }
 
 .qHeader__icon > .MuiSvgIcon-root {
   font-size: xx-large;
   background-color: white;
-  padding: 5px 20px;
+  margin: 10px;
   color: gray;
 }
 
 .qHeader__icon > .MuiSvgIcon-root:hover {
-  background-color: rgba(233, 233, 233, 0.5);
-  border-radius: 10px;
-  color: #b92b27;
+  color: rgb(42, 91, 240);
 }
 
 .qHeader__input {
@@ -77,12 +75,12 @@
   cursor: pointer;
 }
 .qHeader__Rem > .MuiSvgIcon-root:hover {
-  color: #b92b27;
+  color: rgb(42, 91, 240);
 }
 
 .qHeader__Rem > .MuiButton-root {
   color: white;
-  background: #b92b27;
+  background: rgb(0, 64, 255);
   text-transform: inherit;
   border-radius: 20px;
   margin-left: 25px;
@@ -90,9 +88,117 @@
 
 .qHeader__Rem > .MuiButton-root:hover {
   color: #ffffff;
-  background: #8f1f1b;
+  background: rgb(0, 64, 255);
+}
+.modal-overlay{
+  width: 100%; 
+  height: 100%; 
+
+}
+
+.modal__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(187, 187, 187, 0.5);
+}
+
+.modal__title > h3 {
+  color: gray;
+  font-size: 20px;
+  font-weight: 500;
+  
+}
+
+.modal__title > h5:hover {
+  color: rgb(0, 64, 255);
+}
+
+.modal__info {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+
+}
+
+.modal__info > .modal_privacy_title {
+  margin-left: 10px;
+  font-size: large;
+  display: flex;
+  color: gray;
+  margin-bottom: 5px;
+}
+
+.modal__info > .modal__scope {
+  display: flex;
+  align-items: center;
+  color: rgb(98, 98, 98);
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.modal__Field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  flex: 1;
+
+}
+
+.modal__Field > .modal__fieldLink {
+  color: gray;
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.modal__Field > .modal__fieldLink > input {
+  flex: 1;
+  border: none;
+  outline: none;
+  margin-left: 5px;
+}
+
+.modal__buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 300px;
+  border-top: 1px solid lightgray;
+}
+
+.modal__buttons > .cancel {
+  margin-left: auto;
+  border: none;
+  margin-top: 25px;
+  outline: none;
+  color: gray;
+  font-weight: 500;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 33px;
+  cursor: pointer;
+}
+.modal__buttons > .add {
+  border: none;
+  outline: none;
+  margin-top: 25px;
+  background-color: rgb(0, 64, 255);
+  color: white;
+  font-weight: 700;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 33px;
+  cursor: pointer;
 }
 .logout-btn {
   margin-left: 20px;
   cursor:pointer;
+}
+.Dropdown-control{
+  border-radius: 50px;
+}
+.Dropdown-arrow{
+  top:18px;
 }

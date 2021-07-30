@@ -7,7 +7,7 @@ import CheckButton from "react-validation/build/button"
 
 import { signup } from "actions/auth"
 import { Link, useHistory } from "react-router-dom"
-import "stylesheet/form.css"
+
 const required = value => {
   if (!value) {
     return (
@@ -73,15 +73,14 @@ const Signup = () => {
 
   return (
     <div className="col-md-12">
-    
       <div className="card card-container">
         {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
-              </div>
+          <div className="form-group">
+            <div className="alert alert-danger" role="alert">
+              {message}
             </div>
-          )}
+          </div>
+        )}
 
         <Form onSubmit={handleSignup} ref={form}>
           <div>
@@ -110,10 +109,12 @@ const Signup = () => {
             </div>
 
             <div className="form-group">
-              <button className="w-100 btn btn-lg submit-button btn-primary btn-block">Sign Up</button>
+              <button className="w-100 btn btn-lg submit-button btn-primary btn-block">
+                Sign Up
+              </button>
             </div>
           </div>
-          
+
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
           <div className="centered">
             already have an account?

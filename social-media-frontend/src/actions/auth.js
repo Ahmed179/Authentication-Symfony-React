@@ -4,7 +4,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  SET_MESSAGE,
+  SET_MESSAGE
 } from "./types"
 import * as AuthService from "services/auth.service"
 
@@ -31,7 +31,7 @@ export const login = (username, password) => dispatch => {
         dispatch({ type: LOGIN_SUCCESS })
         return resolve()
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch({ type: LOGIN_FAIL })
         return reject(error)
       })
