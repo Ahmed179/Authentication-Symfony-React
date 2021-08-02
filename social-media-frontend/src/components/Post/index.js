@@ -9,7 +9,7 @@ import CreateIcon from "@material-ui/icons/Create"
 
 import "./post.css"
 
-function Post({ id, content, user, onEdit }) {
+function Post({ id, content, user, onEdit, canUpdate }) {
   const dispatch = useDispatch()
 
   async function doDeletePost() {
@@ -33,8 +33,12 @@ function Post({ id, content, user, onEdit }) {
             <ArrowDownwardOutlinedIcon />
           </div>
           <div className="post__footerLeft">
-            <CreateIcon className="edit_icon" onClick={onEdit} />
-            <DeleteIcon className="delete_icon" onClick={doDeletePost} />
+            {canUpdate && (
+              <>
+                <CreateIcon className="edit_icon" onClick={onEdit} />
+                <DeleteIcon className="delete_icon" onClick={doDeletePost} />
+              </>
+            )}
           </div>
         </div>
       </div>
