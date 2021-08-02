@@ -28,7 +28,6 @@ function Navbar() {
   function handleQuestion(data) {
     doCreatePost(data)
     setIsModalOpen(false)
-    console.log(data)
   }
 
   function doLogout() {

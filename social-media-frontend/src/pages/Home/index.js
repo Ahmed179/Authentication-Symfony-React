@@ -9,7 +9,9 @@ function Home() {
   const dispatch = useDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState()
+
   const posts = useSelector(state => state.post.posts)
+  const user = useSelector(state => state.auth.user)
 
   async function doUpdatePost({ id, content, isPrivate }) {
     await dispatch(updatePost(id, content, isPrivate))
@@ -33,14 +35,15 @@ function Home() {
         onSubmit={doUpdatePost}
         submitBtn="Edit Post"
       />
-      {posts.map(({ id, content, user, is_private }, index) => (
+      {posts.map((post, index) => (
         <Post
           key={index}
-          id={id}
-          content={content}
-          user={user}
+          id={post.id}
+          content={post.content}
+          user={post.user}
+          canUpdate={user?.id === post.user.id}
           onEdit={() => {
-            setModalData({ id, content, isPrivate: is_private })
+            setModalData({ id: post.id, content: post.content, isPrivate: post.is_private })
             setIsModalOpen(true)
           }}
         />

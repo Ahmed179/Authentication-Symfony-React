@@ -2,7 +2,7 @@ import { SET_POSTS } from "actions/types"
 
 const initialState = { posts: [] }
 
-function AuthReducer(state = initialState, { type, payload }) {
+function PostReducer(state = initialState, { type, payload }) {
   switch (type) {
     case SET_POSTS:
       return { ...state, posts: payload }
@@ -11,4 +11,4 @@ function AuthReducer(state = initialState, { type, payload }) {
   }
 }
 
-export default AuthReducer
+export default PostReducer

@@ -10,12 +10,10 @@ export async function signup(username, password) {
 }
 
 export async function login(username, password) {
-  const response = await axios.post(API_URL + "login", {
+  return await axios.post(API_URL + "login", {
     username,
     password
   })
-
-  if (response.data) localStorage.setItem("token", response.data)
 }
 
 export function logout() {
