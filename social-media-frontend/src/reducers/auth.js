@@ -7,7 +7,10 @@ import {
 } from "../actions/types"
 
 const token = localStorage.getItem("token")
-const initialState = { isLoggedIn: !!token, user: null }
+let user = localStorage.getItem("user")
+
+user = JSON.parse(user)
+const initialState = { isLoggedIn: !!token, user: user}
 
 function AuthReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -20,7 +23,7 @@ function AuthReducer(state = initialState, { type, payload }) {
     case LOGIN_FAIL:
       return { ...state, isLoggedIn: false }
     case LOGOUT:
-      return { ...state, isLoggedIn: false }
+      return { ...state, isLoggedIn: false, user: null }
     default:
       return state
   }

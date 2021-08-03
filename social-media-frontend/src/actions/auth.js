@@ -30,6 +30,7 @@ export const login = (username, password) => dispatch => {
       .then(response => {
         const { user, token } = response.data
         localStorage.setItem("token", token)
+        localStorage.setItem("user", JSON.stringify(user))
         dispatch({ type: LOGIN_SUCCESS, payload: user })
         return resolve()
       })
