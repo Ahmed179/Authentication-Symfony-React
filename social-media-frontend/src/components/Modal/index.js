@@ -28,7 +28,7 @@ function CustomModal({ title, isOpen, setIsOpen, initialData, onSubmit, submitBt
         content: {
           width: 700,
           height: 600,
-          zIndex: "1000",
+          zIndex: 10000,
           backgroundColor: "white",
           top: "50%",
           left: "50%",

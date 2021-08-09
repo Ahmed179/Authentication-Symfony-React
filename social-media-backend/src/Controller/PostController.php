@@ -46,8 +46,14 @@ class PostController extends AbstractController
    * @Route("/posts", name="get-posts")
    * @param PostTransformer $postTransformer
    */
-  public function getPosts(Request $request, PostTransformer $postTransformer): JsonResponse
+  public function getPosts(Request $request, PostTransformer $postTransformer, PostService $query): JsonResponse
   {
+    // $posts = $query->ReturnData($request);
+    // return new JsonResponse([
+    //   "items" => $posts->getItems(),
+    //   "meta" => $posts->getPaginationData(),
+    // ]);
+
     return new JsonResponse($this->fractalManager->createData(
       new Collection($this->repository->findAll(), $postTransformer)
     )->toArray());
