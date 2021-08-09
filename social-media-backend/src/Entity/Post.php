@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -17,23 +19,33 @@ class Post implements JsonSerializable
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    public $user;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $content;
+    public $content;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $is_private;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", cascade={"remove"})
+     */
+    public $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,12 +88,42 @@ class Post implements JsonSerializable
 
         return $this;
     }
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function jsonSerialize()
     {
         return [
             "id" => $this->id,
             "content" => $this->content,
+            "comments" => $this->comments,
             "user" => $this->user,
             "is_private" => $this->is_private
         ];
