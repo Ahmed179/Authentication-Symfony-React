@@ -1,51 +1,42 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getPosts, updatePost } from "actions/post"
-import Modal from "components/Modal"
+import { getPosts } from "actions/post"
 import Navbar from "components/Navbar"
 import Post from "components/Post"
+import $ from "jquery"
 
 function Home() {
   const dispatch = useDispatch()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalData, setModalData] = useState()
 
-  const posts = useSelector(state => state.post.posts)
+  const posts = useSelector(state => state.posts)
   const user = useSelector(state => state.auth.user)
-
-  async function doUpdatePost({ id, content, isPrivate }) {
-    await dispatch(updatePost(id, content, isPrivate))
-    await dispatch(getPosts())
-    setIsModalOpen(false)
-    setModalData()
-  }
 
   useEffect(() => {
     dispatch(getPosts())
+    $(window).on("scroll", handlePageScroll)
+    return () => $(window).off("scroll", handlePageScroll)
   }, [])
 
+  function handlePageScroll() {
+    const WINDOW_SCROLL_TOP = $(window).scrollTop()
+    const WINDOW_HEIGHT = $(window).height()
+    const DOCUMENT_HEIGHT = $(document).height()
+
+    if (WINDOW_SCROLL_TOP + WINDOW_HEIGHT === DOCUMENT_HEIGHT) {
+    }
+  }
+
   return (
-    <div className="App">
+    <div className="home">
       <Navbar />
-      <Modal
-        title="Update post"
-        initialData={modalData}
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        onSubmit={doUpdatePost}
-        submitBtn="Edit Post"
-      />
       {posts.map((post, index) => (
         <Post
           key={index}
           id={post.id}
           content={post.content}
+          comments={post.comments}
           user={post.user}
           canUpdate={user?.id === post.user.id}
-          onEdit={() => {
-            setModalData({ id: post.id, content: post.content, isPrivate: post.is_private })
-            setIsModalOpen(true)
-          }}
         />
       ))}
     </div>

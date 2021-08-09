@@ -1,31 +1,33 @@
 import * as PostService from "services/post.service"
 import { SET_POSTS } from "./types"
+
 function redirectUnauthorized(err) {
   if (err.response.status === 401) {
     localStorage.removeItem("token")
     window.location.href = "/login"
   }
 }
+
 export const getPosts = () => dispatch => {
-  return new Promise((resolve, reject) =>
+  return new Promise(resolve =>
     PostService.getPosts()
-      .then(response => {
-        dispatch({ type: SET_POSTS, payload: response.data })
+      .then(({ data }) => {
+        dispatch({ type: SET_POSTS, payload: data.data })
         return resolve()
       })
       .catch(redirectUnauthorized)
   )
 }
 
-export const createPost = (content, is_private) => () => {
+export const createPost = content => () => {
   return new Promise(resolve =>
-    PostService.createPost({ content, is_private }).then(resolve).catch(redirectUnauthorized)
+    PostService.createPost({ content }).then(resolve).catch(redirectUnauthorized)
   )
 }
 
-export const updatePost = (id, content, is_private) => () => {
+export const updatePost = (id, content) => () => {
   return new Promise(resolve =>
-    PostService.updatePost(id, { content, is_private }).then(resolve).catch(redirectUnauthorized)
+    PostService.updatePost(id, { content }).then(resolve).catch(redirectUnauthorized)
   )
 }
 

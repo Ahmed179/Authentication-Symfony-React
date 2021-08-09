@@ -1,0 +1,27 @@
+.content-editor {
+  display: flex;
+}
+
+.content-editor input {
+  flex: 1;
+}
+
+.content-editor-cancel,
+.content-editor-check {
+  width: 40px;
+}
+
+.content-editor-cancel {
+  background-color: red;
+}
+
+.content-editor-check {
+  background-color: green;
+
+}
+.content-editor-text{
+  word-wrap: break-word;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
