@@ -1,0 +1,40 @@
+security:
+    enable_authenticator_manager: true
+
+    password_hashers:
+        App\Entity\User:
+            algorithm: auto
+
+    providers:
+        entity_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    encoders:
+        App\Entity\User: bcrypt
+
+    
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+      
+        api:
+            pattern:   ^/api
+            stateless: true
+            provider: entity_provider
+            jwt: ~
+
+        main:
+            lazy: true
+            provider: entity_provider
+
+    access_control:
+        - { path: ^/api/user/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/user/signup, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+
+
+
