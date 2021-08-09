@@ -32,6 +32,7 @@ function Navbar() {
 
   function doLogout() {
     localStorage.removeItem("token")
+    localStorage.removeItem("user")
     history.push("/login")
   }
 

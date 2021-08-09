@@ -27,8 +27,11 @@ export const signup = (username, password) => dispatch => {
 export const login = (username, password) => dispatch => {
   return new Promise((resolve, reject) => {
     AuthService.login(username, password)
-      .then(() => {
-        dispatch({ type: LOGIN_SUCCESS })
+      .then(response => {
+        const { user, token } = response.data
+        localStorage.setItem("token", token)
+        localStorage.setItem("user", JSON.stringify(user))
+        dispatch({ type: LOGIN_SUCCESS, payload: user })
         return resolve()
       })
       .catch(error => {

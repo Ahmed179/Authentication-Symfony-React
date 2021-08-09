@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,9 +10,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use League\Fractal\Resource\Collection;
+use App\Transformer\PostTransformer;
+use League\Fractal\Resource\Item;
+use App\Service\PostService;
+use League\Fractal\Manager;
 use App\Entity\Post;
 use App\Entity\User;
+
 
 /**
  * @Route("/api", name="get-posts")
@@ -21,9 +29,14 @@ class PostController extends AbstractController
 {
   private $manager;
   private $repository;
+  private $tokenStorage;
+  private $fractalManager;
 
-  public function __construct(EntityManagerInterface $manager, ValidatorInterface $validator)
+  public function __construct(EntityManagerInterface $manager, ValidatorInterface $validator, TokenStorageInterface $tokenStorage)
   {
+    $this->fractalManager = new Manager();
+    $this->tokenStorage = $tokenStorage;
+    // $this->fractalManager = $fractalManager;
     $this->manager    = $manager;
     $this->repository = $manager->getRepository(Post::class);
     $this->validator  = $validator;
@@ -31,45 +44,43 @@ class PostController extends AbstractController
 
   /**
    * @Route("/posts", name="get-posts")
+   * @param PostTransformer $postTransformer
    */
-  public function getPosts(Request $request): JsonResponse
+  public function getPosts(Request $request, PostTransformer $postTransformer): JsonResponse
   {
-    $posts = $this->repository->findAll();
-    return new JsonResponse($posts, Response::HTTP_OK);
+    return new JsonResponse($this->fractalManager->createData(
+      new Collection($this->repository->findAll(), $postTransformer)
+    )->toArray());
   }
   /**
    * @Route("/post", name="create-post", methods={"POST"})
    */
   public function createPost(Request $request)
   {
+    $user = $this->tokenStorage->getToken()->getUser();
     $data = json_decode($request->getContent(), true);
 
     $constraints = new Assert\Collection([
-      'user_id' =>    [new Assert\NotBlank()],
-      'content' =>    [new Assert\NotBlank()],
-      'is_private' => [new Assert\NotNull()],
+      'content' => [new Assert\NotBlank()],
     ]);
 
     $errors = $this->validator->validate($data, $constraints);
     if (count($errors) > 0) return new Response($errors);
 
-    $user_id =    $data['user_id'];
     $content =    $data['content'];
-    $is_private = $data['is_private'];
 
     $user_repository = $this->manager->getRepository(User::class);
-    $user = $user_repository->findOneBy(['id' => $user_id]);
+    $user = $user_repository->findOneBy(['id' => $user->getId()]);
 
     $post = new Post();
     $post
       ->setUser($user)
-      ->setContent($content)
-      ->setPrivacy($is_private);
+      ->setContent($content);
 
     $this->manager->persist($post);
     $this->manager->flush();
 
-    return new JsonResponse(['status' => 'post added!'], Response::HTTP_OK);
+    return new JsonResponse(['status' => 'Post added!'], Response::HTTP_OK);
   }
 
   /**
@@ -80,20 +91,17 @@ class PostController extends AbstractController
     $data = json_decode($request->getContent(), true);
 
     $constraints = new Assert\Collection([
-      'content' => [new Assert\NotBlank()],
-      'is_private' => [new Assert\NotNull()],
+      'content'    => [new Assert\NotBlank()],
     ]);
 
     $errors = $this->validator->validate($data, $constraints);
     if (count($errors) > 0) return new Response($errors);
 
     $content  = $data['content'];
-    $is_private  = $data['is_private'];
 
     $post = $this->repository->findOneBy(['id' => $id]);
     $post
-      ->setContent($content)
-      ->setPrivacy($is_private);
+      ->setContent($content);
 
     $this->manager->persist($post);
     $this->manager->flush();
