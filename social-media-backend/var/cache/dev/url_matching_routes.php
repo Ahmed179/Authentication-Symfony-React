@@ -77,6 +77,7 @@ return [
             [['_route' => 'get-commentsdelete-comment', '_controller' => 'App\\Controller\\CommentController::deleteComment'], ['id'], ['DELETE' => 0], null, false, true, null],
         ],
         223 => [
+            [['_route' => 'get-postsget-post', '_controller' => 'App\\Controller\\PostController::getPost'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'get-postsupdate-post', '_controller' => 'App\\Controller\\PostController::updatePost'], ['id'], ['PUT' => 0], null, false, true, null],
             [['_route' => 'get-postsdelete-post', '_controller' => 'App\\Controller\\PostController::deletePost'], ['id'], ['DELETE' => 0], null, false, true, null],
         ],

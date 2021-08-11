@@ -21,6 +21,7 @@
       <parameter key="ApiPlatformBundle">ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="KnpPaginatorBundle">Knp\Bundle\PaginatorBundle\KnpPaginatorBundle</parameter>
+      <parameter key="BabDevPagerfantaBundle">BabDev\PagerfantaBundle\BabDevPagerfantaBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -70,6 +71,10 @@
       <parameter key="KnpPaginatorBundle" type="collection">
         <parameter key="path">/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle</parameter>
         <parameter key="namespace">Knp\Bundle\PaginatorBundle</parameter>
+      </parameter>
+      <parameter key="BabDevPagerfantaBundle" type="collection">
+        <parameter key="path">/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle</parameter>
+        <parameter key="namespace">BabDev\PagerfantaBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -372,6 +377,8 @@
     <parameter key="knp_paginator.template.sortable">@KnpPaginator/Pagination/sortable_link.html.twig</parameter>
     <parameter key="knp_paginator.page_range">5</parameter>
     <parameter key="knp_paginator.page_limit">null</parameter>
+    <parameter key="babdev_pagerfanta.default_twig_template">@Pagerfanta/default.html.twig</parameter>
+    <parameter key="babdev_pagerfanta.default_view">default</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -462,9 +469,6 @@
     <service id="App\Controller\PostController" class="App\Controller\PostController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="debug.validator"/>
-      <argument type="service" id="security.token_storage"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.W9y3dzm.App\Controller\PostController"/>
       </call>
@@ -490,10 +494,6 @@
     <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
-    </service>
-    <service id="App\Service\PostService" class="App\Service\PostService" autowire="true" autoconfigure="true">
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="service_container"/>
     </service>
     <service id="App\Transformer\CommentTransformer" class="App\Transformer\CommentTransformer" autowire="true" autoconfigure="true"/>
     <service id="App\Transformer\PostTransformer" class="App\Transformer\PostTransformer" autowire="true" autoconfigure="true"/>
@@ -971,7 +971,9 @@
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations</argument>
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations</argument>
       </argument>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/pagerfanta/pagerfanta/lib/Twig/templates/</argument>
+      </argument>
       <call method="setName">
         <argument>debug:translation</argument>
       </call>
@@ -992,7 +994,9 @@
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations</argument>
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations</argument>
       </argument>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/pagerfanta/pagerfanta/lib/Twig/templates/</argument>
+      </argument>
       <call method="setName">
         <argument>translation:update</argument>
       </call>
@@ -1609,10 +1613,12 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.ar.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.ar.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.ar.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.ar.xliff</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.az.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.az.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.az.xliff</argument>
           </argument>
           <argument key="be" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.be.xlf</argument>
@@ -1630,11 +1636,13 @@
           <argument key="ca" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.ca.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.ca.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.ca.xliff</argument>
           </argument>
           <argument key="cs" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.cs.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.cs.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.cs.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.cs.xliff</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.cy.xlf</argument>
@@ -1643,11 +1651,13 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.da.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.da.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.da.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.da.xliff</argument>
           </argument>
           <argument key="de" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.de.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.de.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.de.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.de.xliff</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.el.xlf</argument>
@@ -1657,11 +1667,13 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.en.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.en.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.en.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.en.xliff</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.es.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.es.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.es.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.es.xliff</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.et.xlf</argument>
@@ -1675,19 +1687,23 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.fa.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.fa.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.fa.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.fa.xliff</argument>
           </argument>
           <argument key="fi" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.fi.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.fi.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.fi.xliff</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.fr.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.fr.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.fr.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.fr.xliff</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.gl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.gl.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.gl.xliff</argument>
           </argument>
           <argument key="he" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.he.xlf</argument>
@@ -1696,6 +1712,7 @@
           <argument key="hr" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.hr.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.hr.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.hr.xliff</argument>
           </argument>
           <argument key="hu" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.hu.xlf</argument>
@@ -1715,6 +1732,7 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.it.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.it.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.it.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.it.xliff</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.ja.xlf</argument>
@@ -1746,6 +1764,7 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.nl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.nl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.nl.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.nl.xliff</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.nn.xlf</argument>
@@ -1755,15 +1774,18 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.no.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.no.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.no.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.no.xliff</argument>
           </argument>
           <argument key="pl" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.pl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.pl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.pl.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.pl.xliff</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.pt.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.pt.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.pt.xliff</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.pt_BR.xlf</argument>
@@ -1774,19 +1796,23 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.ro.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.ro.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.ro.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.ro.xliff</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.ru.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.ru.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.ru.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.ru.xliff</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.sk.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.sk.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.sk.xliff</argument>
           </argument>
           <argument key="sl" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.sl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.sl.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.sl.xliff</argument>
           </argument>
           <argument key="sq" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.sq.xlf</argument>
@@ -1795,19 +1821,23 @@
           <argument key="sr_Cyrl" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.sr_Cyrl.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.sr_Cyrl.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.sr_Cyrl.xliff</argument>
           </argument>
           <argument key="sr_Latn" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.sr_Latn.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.sr_Latn.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.sr_Latn.xliff</argument>
           </argument>
           <argument key="sv" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.sv.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.sv.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.sv.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.sv.xliff</argument>
           </argument>
           <argument key="th" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.th.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.th.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.th.xliff</argument>
           </argument>
           <argument key="tl" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.tl.xlf</argument>
@@ -1817,11 +1847,13 @@
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.tr.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.tr.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.tr.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.tr.xliff</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.uk.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.uk.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.uk.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.uk.xliff</argument>
           </argument>
           <argument key="uz" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.uz.xlf</argument>
@@ -1834,6 +1866,7 @@
           <argument key="zh_CN" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.zh_CN.xlf</argument>
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations/security.zh_CN.xlf</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.zh_CN.xliff</argument>
           </argument>
           <argument key="zh_TW" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations/validators.zh_TW.xlf</argument>
@@ -1844,12 +1877,17 @@
           </argument>
           <argument key="sw" type="collection">
             <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.sw.xliff</argument>
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.sw.xliff</argument>
+          </argument>
+          <argument key="oc" type="collection">
+            <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations/pagerfanta.oc.xliff</argument>
           </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/validator/Resources/translations</argument>
           <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/security-core/Resources/translations</argument>
           <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/translations</argument>
+          <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/translations</argument>
           <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/translations</argument>
           <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/framework-bundle/translations</argument>
           <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/symfony/maker-bundle/src/translations</argument>
@@ -1868,6 +1906,7 @@
             <argument>vendor/symfony/validator/Resources/translations</argument>
             <argument>vendor/symfony/security-core/Resources/translations</argument>
             <argument>vendor/knplabs/knp-paginator-bundle/translations</argument>
+            <argument>vendor/babdev/pagerfanta-bundle/translations</argument>
             <argument>translations</argument>
             <argument>vendor/symfony/framework-bundle/translations</argument>
             <argument>vendor/symfony/maker-bundle/src/translations</argument>
@@ -2512,6 +2551,22 @@
           <argument>onKernelRequest</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.exception</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="pagerfanta.event_listener.convert_not_valid_max_per_page_to_not_found"/>
+          <argument>onKernelException</argument>
+        </argument>
+        <argument>512</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.exception</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="pagerfanta.event_listener.convert_not_valid_current_page_to_not_found"/>
+          <argument>onKernelException</argument>
+        </argument>
+        <argument>512</argument>
       </call>
       <call method="addListener">
         <argument>kernel.response</argument>
@@ -3191,6 +3246,7 @@
       <tag name="container.private" package="symfony/framework-bundle" version="5.2"/>
       <argument type="collection">
         <argument type="service" id="serializer.denormalizer.unwrapping"/>
+        <argument type="service" id="pagerfanta.serializer.normalizer"/>
         <argument type="service" id="api_platform.openapi.normalizer.api_gateway"/>
         <argument type="service" id="api_platform.swagger.normalizer.api_gateway"/>
         <argument type="service" id="api_platform.hydra.normalizer.constraint_violation_list"/>
@@ -5296,6 +5352,9 @@
       <call method="addExtension">
         <argument type="service" id="knp_paginator.twig.extension.pagination"/>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="pagerfanta.twig_extension"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="twig.app_variable"/>
@@ -5321,7 +5380,9 @@
     </service>
     <service id="twig.template_iterator" class="Symfony\Bundle\TwigBundle\TemplateIterator">
       <argument type="service" id="kernel"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/pagerfanta/pagerfanta/lib/Twig/templates/">Pagerfanta</argument>
+      </argument>
       <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/templates</argument>
     </service>
     <service id="twig.template_cache_warmer" class="Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer">
@@ -5334,6 +5395,10 @@
       <tag name="twig.loader"/>
       <argument type="collection"/>
       <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend</argument>
+      <call method="addPath">
+        <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/pagerfanta/pagerfanta/lib/Twig/templates/</argument>
+        <argument>Pagerfanta</argument>
+      </call>
       <call method="addPath">
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/doctrine/doctrine-bundle/Resources/views</argument>
         <argument>Doctrine</argument>
@@ -5381,6 +5446,14 @@
       <call method="addPath">
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/knplabs/knp-paginator-bundle/templates</argument>
         <argument>!KnpPaginator</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/templates</argument>
+        <argument>BabDevPagerfanta</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/vendor/babdev/pagerfanta-bundle/templates</argument>
+        <argument>!BabDevPagerfanta</argument>
       </call>
       <call method="addPath">
         <argument>/Users/aian/Documents/Staff/Authentication-Symfony-React/social-media-backend/templates</argument>
@@ -5459,7 +5532,7 @@
       <argument>,</argument>
     </service>
     <service id="twig.runtime_loader" class="Twig\RuntimeLoader\ContainerRuntimeLoader">
-      <argument type="service" id=".service_locator.VMK2iOS"/>
+      <argument type="service" id=".service_locator.kMwZIph"/>
     </service>
     <service id="twig.error_renderer.html" class="Symfony\Bridge\Twig\ErrorRenderer\TwigErrorRenderer">
       <argument type="service" id="twig"/>
@@ -6467,6 +6540,89 @@
       <tag name="twig.extension"/>
       <argument type="service" id="knp_paginator.helper.processor"/>
     </service>
+    <service id="pagerfanta.route_generator_factory" class="BabDev\PagerfantaBundle\RouteGenerator\RequestAwareRouteGeneratorFactory" public="true">
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="request_stack"/>
+      <argument type="service" id="property_accessor" on-invalid="ignore"/>
+    </service>
+    <service id="pagerfanta.view.default" class="Pagerfanta\View\DefaultView">
+      <tag name="pagerfanta.view" alias="default"/>
+    </service>
+    <service id="pagerfanta.view.foundation6" class="Pagerfanta\View\Foundation6View">
+      <tag name="pagerfanta.view" alias="foundation6"/>
+    </service>
+    <service id="pagerfanta.view.semantic_ui" class="Pagerfanta\View\SemanticUiView">
+      <tag name="pagerfanta.view" alias="semantic_ui"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap" class="Pagerfanta\View\TwitterBootstrapView">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap3" class="Pagerfanta\View\TwitterBootstrap3View">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap3"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap4" class="Pagerfanta\View\TwitterBootstrap4View">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap4"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap5" class="Pagerfanta\View\TwitterBootstrap5View">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap5"/>
+    </service>
+    <service id="pagerfanta.view_factory" class="Pagerfanta\View\ViewFactory" public="true">
+      <call method="set">
+        <argument>default</argument>
+        <argument type="service" id="pagerfanta.view.default"/>
+      </call>
+      <call method="set">
+        <argument>foundation6</argument>
+        <argument type="service" id="pagerfanta.view.foundation6"/>
+      </call>
+      <call method="set">
+        <argument>semantic_ui</argument>
+        <argument type="service" id="pagerfanta.view.semantic_ui"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap3</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap3"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap4</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap4"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap5</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap5"/>
+      </call>
+      <call method="set">
+        <argument>twig</argument>
+        <argument type="service" id="pagerfanta.view.twig"/>
+      </call>
+    </service>
+    <service id="pagerfanta.twig_extension" class="Pagerfanta\Twig\Extension\PagerfantaExtension">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="pagerfanta.twig_runtime" class="Pagerfanta\Twig\Extension\PagerfantaRuntime">
+      <tag name="twig.runtime"/>
+      <argument>default</argument>
+      <argument type="service" id="pagerfanta.view_factory"/>
+      <argument type="service" id="pagerfanta.route_generator_factory"/>
+    </service>
+    <service id="pagerfanta.view.twig" class="Pagerfanta\Twig\View\TwigView">
+      <tag name="pagerfanta.view" alias="twig"/>
+      <argument type="service" id="twig"/>
+      <argument>@Pagerfanta/default.html.twig</argument>
+    </service>
+    <service id="pagerfanta.serializer.normalizer" class="BabDev\PagerfantaBundle\Serializer\Normalizer\PagerfantaNormalizer">
+      <tag name="serializer.normalizer"/>
+    </service>
+    <service id="pagerfanta.event_listener.convert_not_valid_max_per_page_to_not_found" class="BabDev\PagerfantaBundle\EventListener\ConvertNotValidCurrentPageToNotFoundListener">
+      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="512"/>
+    </service>
+    <service id="pagerfanta.event_listener.convert_not_valid_current_page_to_not_found" class="BabDev\PagerfantaBundle\EventListener\ConvertNotValidMaxPerPageToNotFoundListener">
+      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="512"/>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -6797,24 +6953,29 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.KfbR3DY.Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator.OsKctDg" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Hqd5GA3" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="postTransformer" type="service_closure" id="App\Transformer\PostTransformer"/>
-        <argument key="query" type="service_closure" id="App\Service\PostService"/>
+        <argument key="transformer" type="service_closure" id="App\Transformer\PostTransformer"/>
       </argument>
     </service>
-    <service id=".service_locator.dQ0jd8H" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Lc68.E2" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\PostController::getPosts" type="service_closure" id=".service_locator.OsKctDg"/>
+        <argument key="App\Controller\PostController::createPost" type="service_closure" id=".service_locator.Hqd5GA3"/>
+        <argument key="App\Controller\PostController::getPost" type="service_closure" id=".service_locator.Hqd5GA3"/>
+        <argument key="App\Controller\PostController::getPosts" type="service_closure" id=".service_locator.Hqd5GA3"/>
+        <argument key="App\Controller\PostController::updatePost" type="service_closure" id=".service_locator.Hqd5GA3"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="App\Kernel::terminate" type="service_closure" id=".service_locator.KfwZsne"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel::terminate" type="service_closure" id=".service_locator.KfwZsne"/>
-        <argument key="App\Controller\PostController:getPosts" type="service_closure" id=".service_locator.OsKctDg"/>
+        <argument key="App\Controller\PostController:createPost" type="service_closure" id=".service_locator.Hqd5GA3"/>
+        <argument key="App\Controller\PostController:getPost" type="service_closure" id=".service_locator.Hqd5GA3"/>
+        <argument key="App\Controller\PostController:getPosts" type="service_closure" id=".service_locator.Hqd5GA3"/>
+        <argument key="App\Controller\PostController:updatePost" type="service_closure" id=".service_locator.Hqd5GA3"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel:terminate" type="service_closure" id=".service_locator.KfwZsne"/>
@@ -7126,12 +7287,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.dQ0jd8H"/>
+      <argument type="service" id=".service_locator.Lc68.E2"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.dQ0jd8H"/>
+      <argument type="service" id=".service_locator.Lc68.E2"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -7932,9 +8093,10 @@
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
-    <service id=".service_locator.VMK2iOS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.kMwZIph" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="Pagerfanta\Twig\Extension\PagerfantaRuntime" type="service_closure" id="pagerfanta.twig_runtime"/>
         <argument key="Symfony\Bridge\Twig\Extension\CsrfRuntime" type="service_closure" id="twig.runtime.security_csrf"/>
         <argument key="Symfony\Bridge\Twig\Extension\HttpKernelRuntime" type="service_closure" id="twig.runtime.httpkernel"/>
         <argument key="Symfony\Bridge\Twig\Extension\SerializerRuntime" type="service_closure" id="twig.runtime.serializer"/>
@@ -8148,9 +8310,12 @@
     <service id="api_platform.security.expression_language" alias="security.expression_language"/>
     <service id="ApiPlatform\Core\Security\ResourceAccessCheckerInterface" alias="api_platform.security.resource_access_checker"/>
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
+    <service id="Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface" alias="pagerfanta.route_generator_factory"/>
+    <service id="Pagerfanta\View\ViewFactory" alias="pagerfanta.view_factory"/>
+    <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.0GV1BZZ" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.dQ0jd8H"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Lc68.E2"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -8221,7 +8386,7 @@
     <service id=".service_locator.Xbsa8iG" alias="api_platform.filter_locator"/>
     <service id=".service_locator._5g_Wvc" alias=".service_locator.KfwZsne"/>
     <service id=".service_locator.JBAFp66" alias=".service_locator.KfbR3DY"/>
-    <service id=".service_locator.mIk5jPa" alias=".service_locator.OsKctDg"/>
+    <service id=".service_locator.7ZUWVvI" alias=".service_locator.Hqd5GA3"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.anofQPJ"/>
     <service id=".service_locator.smJsCNt" alias=".service_locator.W9y3dzm"/>
   </services>

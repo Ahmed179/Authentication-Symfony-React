@@ -6,21 +6,21 @@ import CreateIcon from "@material-ui/icons/Create"
 import ReplyIcon from "@material-ui/icons/Reply"
 import ContentEditor from "components/ContentEditor"
 import { updateComment, deleteComment } from "actions/comments"
-import { getPosts } from "actions/post"
+import { getPost } from "actions/post"
 import "./comment.css"
 
-function Comment({ id, user, content, canUpdate }) {
+function Comment({ id, postID, user, content, canUpdate }) {
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
 
   async function doDeleteComment() {
     await dispatch(deleteComment(id))
-    await dispatch(getPosts())
+    await dispatch(getPost(postID))
   }
 
   async function doUpateComment(content) {
     await dispatch(updateComment(id, content))
-    await dispatch(getPosts())
+    await dispatch(getPost(postID))
   }
 
   return (

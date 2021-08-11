@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import { createPost, getPosts } from "actions/post"
+import { createPost } from "actions/post"
 import HomeIcon from "@material-ui/icons/Home"
 import FeaturedPlayListOutlinedIcon from "@material-ui/icons/FeaturedPlayListOutlined"
 import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined"
@@ -20,9 +20,8 @@ function Navbar() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  async function doCreatePost({ content, isPrivate }) {
-    await dispatch(createPost(content, isPrivate))
-    await dispatch(getPosts())
+  async function doCreatePost({ content }) {
+    await dispatch(createPost(content))
   }
 
   function handleQuestion(data) {

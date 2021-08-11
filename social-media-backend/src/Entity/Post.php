@@ -125,7 +125,6 @@ class Post implements JsonSerializable
             "content" => $this->content,
             "comments" => $this->comments,
             "user" => $this->user,
-            "is_private" => $this->is_private
         ];
     }
 }
