@@ -1,6 +1,7 @@
 import React, { useState } from "react"
+import { DELETE_POST } from "actions/types"
 import { useSelector, useDispatch } from "react-redux"
-import { deletePost, updatePost, getPosts } from "actions/post"
+import { deletePost, updatePost, getPost } from "actions/post"
 import { createComment } from "actions/comments"
 import { Avatar } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -11,7 +12,7 @@ import ContentEditor from "components/ContentEditor"
 import SendIcon from "@material-ui/icons/Send"
 import "./post.css"
 
-function Post({ id, content, user, comments, canUpdate }) {
+function Post({ postID, content, user, comments, canUpdate }) {
   const dispatch = useDispatch()
   const _user = useSelector(state => state.auth.user)
 
@@ -20,19 +21,18 @@ function Post({ id, content, user, comments, canUpdate }) {
   const [comment, setComment] = useState("")
 
   async function doDeletePost() {
-    await dispatch(deletePost(id))
-    await dispatch(getPosts())
+    dispatch({ type: DELETE_POST, payload: { postID } })
+    await dispatch(deletePost(postID))
   }
 
   async function doCreateComment() {
-    await dispatch(createComment(comment, id, _user.id))
-    await dispatch(getPosts())
+    await dispatch(createComment(comment, postID, _user.id))
+    await dispatch(getPost(postID))
     setComment("")
   }
 
   async function doUpdatePost(content) {
-    await dispatch(updatePost(id, content))
-    await dispatch(getPosts())
+    await dispatch(updatePost(postID, content))
   }
 
   return (
@@ -79,6 +79,7 @@ function Post({ id, content, user, comments, canUpdate }) {
             <Comment
               key={id}
               id={id}
+              postID={postID}
               user={user}
               content={content}
               canUpdate={_user?.id === user.id}

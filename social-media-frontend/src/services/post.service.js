@@ -1,8 +1,15 @@
 import axiosRequest from "./axiosPrivateRoutes"
-export const getPosts = () =>
+
+export const getPosts = (page, perPage) =>
   axiosRequest({
     method: "get",
-    url: "/posts"
+    url: `/posts/?page=${page}&per_page=${perPage}`
+  })
+
+export const getPost = id =>
+  axiosRequest({
+    method: "get",
+    url: `/post/${id}`
   })
 
 export const createPost = data =>
