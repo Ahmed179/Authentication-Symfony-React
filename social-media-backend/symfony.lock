@@ -16,6 +16,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "babdev/pagerfanta-bundle": {
+        "version": "v3.3.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
@@ -152,6 +155,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.11.0"
+    },
+    "pagerfanta/pagerfanta": {
+        "version": "v3.3.0"
     },
     "php": {
         "version": "7.4"

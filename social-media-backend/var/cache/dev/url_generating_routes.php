@@ -19,6 +19,7 @@ return [
     'get-commentsupdate-comment' => [['id'], ['_controller' => 'App\\Controller\\CommentController::updateComment'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/comment']], [], []],
     'get-commentsdelete-comment' => [['id'], ['_controller' => 'App\\Controller\\CommentController::deleteComment'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/comment']], [], []],
     'get-postsget-posts' => [[], ['_controller' => 'App\\Controller\\PostController::getPosts'], [], [['text', '/api/posts']], [], []],
+    'get-postsget-post' => [['id'], ['_controller' => 'App\\Controller\\PostController::getPost'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/post']], [], []],
     'get-postscreate-post' => [[], ['_controller' => 'App\\Controller\\PostController::createPost'], [], [['text', '/api/post']], [], []],
     'get-postsupdate-post' => [['id'], ['_controller' => 'App\\Controller\\PostController::updatePost'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/post']], [], []],
     'get-postsdelete-post' => [['id'], ['_controller' => 'App\\Controller\\PostController::deletePost'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/post']], [], []],
